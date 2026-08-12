@@ -23,7 +23,19 @@ export default async function handler(req, res) {
   try {
     const response = await fetch('https://api.web3forms.com/submit', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        // Web3Forms can fall back to an HTML response for some error
+        // paths unless it's explicitly told the caller wants JSON.
+        'Accept': 'application/json',
+        // Server-to-server calls from a serverless function have no
+        // browser Origin/Referer by default. Some anti-spam/WAF layers
+        // treat that as suspicious and respond with an HTML challenge
+        // page instead of JSON — which looks exactly like this bug.
+        // Setting these explicitly avoids that.
+        'Origin': 'https://n0fill.vercel.app',
+        'Referer': 'https://n0fill.vercel.app/'
+      },
       body: JSON.stringify({
         access_key: process.env.WEB3FORMS_KEY,  // ← key from env, never exposed
         name,
@@ -35,16 +47,24 @@ export default async function handler(req, res) {
       })
     });
 
-    // If Web3Forms itself returns a non-2xx, response.json() can still
-    // succeed (it usually replies with JSON either way), but guard
-    // against a non-JSON body (e.g. a gateway error page) so the
-    // function doesn't throw an unhelpful parse error.
+    // Read as text first so a non-JSON reply (HTML error page, empty
+    // body, etc.) doesn't just throw an opaque parse error — we can
+    // log exactly what came back and report the real HTTP status.
+    const raw = await response.text();
+
     let data;
     try {
-      data = await response.json();
+      data = JSON.parse(raw);
     } catch (parseErr) {
-      console.error('Web3Forms returned non-JSON:', parseErr);
-      return res.status(502).json({ error: 'Unexpected response from email provider. Please try again.' });
+      console.error(
+        'Web3Forms returned non-JSON. status=%d body=%s',
+        response.status,
+        raw.slice(0, 500)
+      );
+      return res.status(502).json({
+        error: `Email provider returned an unexpected response (HTTP ${response.status}). ` +
+               `Check the Vercel function logs for the full body, or verify your Web3Forms access key.`
+      });
     }
 
     if (data.success) {
@@ -56,6 +76,6 @@ export default async function handler(req, res) {
 
   } catch (err) {
     console.error('Contact handler error:', err);
-    return res.status(500).json({ error: 'Server error. Please try again.' });
+    return res.status(500).json({ error: `Server error: ${err.message || 'please try again.'}` });
   }
 }
