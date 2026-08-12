@@ -3140,6 +3140,13 @@ if(sfSec) sfObs.observe(sfSec);
 /* ══════════════════════════════════════════
    WEB3FORMS SUBMIT HANDLER
 ══════════════════════════════════════════ */
+// Web3Forms access key. This is NOT a secret — Web3Forms's own docs
+// confirm it's designed to be public/client-side, the same way a site's
+// public API key works. Get yours from https://web3forms.com/ (it's the
+// same value you had set as WEB3FORMS_KEY in Vercel's environment
+// variables) and paste it below.
+const WEB3FORMS_ACCESS_KEY = '4c40e91d-b17f-4a1c-b7eb-74c0bab6c1ec';
+
 async function sendW3Form(e) {
   e.preventDefault();
 
@@ -3167,29 +3174,32 @@ async function sendW3Form(e) {
   status.innerHTML = '';
 
   try {
-   const formData = new FormData(form);
-const payload = {
-  name:               formData.get('name'),
-  email:              formData.get('email'),
-  message:            formData.get('message'),
-  'h-captcha-response': formData.get('h-captcha-response') || ''
-};
-const res = await fetch('/api/contact', {
-  method:  'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body:    JSON.stringify(payload)
-});
+    const formData = new FormData(form);
+    const payload = {
+      access_key: WEB3FORMS_ACCESS_KEY,
+      name:                 formData.get('name'),
+      email:                formData.get('email'),
+      message:              formData.get('message'),
+      'h-captcha-response': formData.get('h-captcha-response') || '',
+      subject:   'Portfolio Contact — Mohammadnofil Shaikh',
+      from_name: 'Portfolio Website'
+    };
+
+    // Submitting straight to Web3Forms from the browser — the same
+    // context that solved the hCaptcha challenge is the one sending
+    // the request, so there's no IP/origin mismatch for it to reject.
+    const res = await fetch('https://api.web3forms.com/submit', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body:    JSON.stringify(payload)
+    });
     const data = await res.json();
 
     if (data.success) {
       status.innerHTML = '<span class="w3f-success">&#10003; Message sent! I’ll reply within 24 hours.</span>';
       form.reset();
     } else {
-      // contact.js replies with { error: "..." } on failure, not
-      // { message: "..." } — read the field it actually sends so the
-      // real reason (bad access key, missing captcha, etc.) surfaces
-      // instead of always falling through to the generic fallback.
-      throw new Error(data.error || data.message || 'Submission failed');
+      throw new Error(data.message || 'Submission failed');
     }
   } catch (err) {
     const detail = (err && err.message) ? err.message : 'Please try LinkedIn instead.';
