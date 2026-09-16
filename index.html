@@ -874,7 +874,7 @@ body.dm .hero-photo-wrap img{filter:grayscale(20%) brightness(0.92);}
    SECTIONS — shared
 ════════════════════════════════════════ */
 .section{position:relative;padding:96px 60px;border-bottom:1px solid var(--border);}
-.s-inner{max-width:1160px;margin:0 auto;}
+.s-inner{max-width:1240px;margin:0 auto;}
 .s-head{display:grid;grid-template-columns:200px 1fr;gap:56px;margin-bottom:56px;align-items:baseline;}
 .s-tag{font-family:var(--mono);font-size:10.8px;color:var(--ink3);letter-spacing:.14em;text-transform:uppercase;padding-top:10px;}
 .s-title{font-family:var(--serif);font-size:clamp(24.3px,2.52vw,39.6px);font-weight:400;color:var(--ink);line-height:1.1;letter-spacing:-.01em;}
@@ -884,7 +884,7 @@ body.dm .hero-photo-wrap img{filter:grayscale(20%) brightness(0.92);}
    ABOUT
 ════════════════════════════════════════ */
 #about{background:var(--bg2);}
-.about-body{display:grid;grid-template-columns:200px 1fr;gap:56px;}
+.about-body{width:100%;}
 .about-cols{display:grid;grid-template-columns:1.2fr 1fr;gap:48px;}
 .ap{font-size:16.65px;color:var(--ink2);line-height:1.85;margin-bottom:16px;font-weight:300;}
 .ap strong{color:var(--ink);font-weight:600;}
@@ -1001,7 +1001,7 @@ body.dm .soft-track{background:var(--bg2);}
    SKILLS
 ════════════════════════════════════════ */
 #skills{background:var(--bg2);}
-.skills-body{display:grid;grid-template-columns:200px 1fr;gap:56px;}
+.skills-body{width:100%;}
 .skills-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
 .sk-card{
   background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);
@@ -1031,7 +1031,7 @@ body.dm .tool img{filter:grayscale(40%) brightness(1.3);}
    EXPERIENCE
 ════════════════════════════════════════ */
 #experience{background:var(--bg);}
-.xp-body{display:grid;grid-template-columns:200px 1fr;gap:56px;}
+.xp-body{width:100%;}
 .xp-list{display:flex;flex-direction:column;}
 .xp-item{
   display:grid;grid-template-columns:170px 1fr;gap:32px;
@@ -1057,25 +1057,27 @@ body.dm .tool img{filter:grayscale(40%) brightness(1.3);}
    PROJECTS
 ════════════════════════════════════════ */
 #projects{background:var(--bg2);}
-.proj-body{display:grid;grid-template-columns:200px 1fr;gap:56px;}
-.proj-cards{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start;}
+.proj-body{width:100%;}
+.proj-cards{display:flex;flex-direction:column;gap:24px;}
 .pj{
   background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);
-  overflow:hidden;display:flex;flex-direction:column;
+  overflow:hidden;display:flex;flex-direction:row;align-items:stretch;
   transition:transform .35s cubic-bezier(.4,0,.2,1), box-shadow .35s, border-color .3s;
 }
-.pj:hover{transform:translateY(-6px);border-color:var(--border2);box-shadow:0 16px 40px rgba(0,0,0,0.08);}
+.pj:hover{transform:translateY(-4px);border-color:var(--border2);box-shadow:0 16px 40px rgba(0,0,0,0.08);}
 body.dm .pj:hover{box-shadow:0 16px 40px rgba(0,0,0,0.45);}
 .pj-img-wrap{
-  width:100%;aspect-ratio:1536/1024;background:var(--bg3);
-  overflow:hidden;flex-shrink:0;
+  position:relative;
+  width:38%;min-width:220px;max-width:380px;flex-shrink:0;
+  background:var(--bg3);overflow:hidden;
 }
 .pj-img-dark{display:none;}
 body.dm .pj-img-light{display:none;}
 body.dm .pj-img-dark{display:block;}
-.pj-img{width:100%;height:100%;object-fit:cover;display:block;}
-.pj-preview{padding:20px 22px 22px;display:flex;flex-direction:column;flex:1;}
-.pj-top-row{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:8px;}
+.pj-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
+.pj-content{display:flex;flex-direction:column;flex:1;min-width:0;}
+.pj-preview{padding:16px 20px 12px;display:flex;flex-direction:column;}
+.pj-top-row{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:6px;}
 .pj-num{
   font-family:var(--mono);font-size:9.9px;color:var(--ink3);letter-spacing:.12em;text-transform:uppercase;
   line-height:1.5;min-height:0;padding-top:6px;
@@ -1083,58 +1085,31 @@ body.dm .pj-img-dark{display:block;}
 }
 .pj-name{
   font-family:var(--serif);font-size:20.7px;font-weight:400;color:var(--ink);
-  margin-bottom:10px;line-height:1.2;min-height:52px;
+  margin-bottom:6px;line-height:1.2;
   display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;
 }
 .pj-desc{
   font-size:14.85px;color:var(--ink2);line-height:1.5;margin-bottom:10px;font-weight:300;
-  min-height:25px;
-  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden;
 }
-.pj.is-open .pj-desc{-webkit-line-clamp:unset;overflow:visible;margin-bottom:14px;}
-.pj-stack{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;}
-.pj-chip-hidden{display:none;}
-.pj.is-open .pj-chip-hidden{display:inline-flex;}
-.pj.is-open .pj-chip-more{display:none;}
+.pj-stack{display:flex;flex-wrap:wrap;gap:6px;}
 .pj-feature{
   display:flex;align-items:flex-start;gap:9px;
   font-size:13.05px;color:var(--ink2);line-height:1.55;font-weight:300;
   padding:12px 14px;background:var(--bg3);border-radius:10px;border:1px solid var(--border);
-  margin-bottom:20px;
+  margin-bottom:10px;
 }
 .pj-feature svg{width:15px;height:15px;flex-shrink:0;stroke:var(--ink3);margin-top:2px;}
 .pj-feature b{font-weight:600;color:var(--ink);}
-.pj-more-btn{
-  margin-top:auto;align-self:flex-start;
-  display:inline-flex;align-items:center;gap:7px;cursor:pointer;
-  font-family:var(--mono);font-size:10.35px;letter-spacing:.07em;text-transform:uppercase;
-  color:var(--ink3);background:var(--glass2);border:1px solid var(--border2);
-  padding:8px 16px;border-radius:50px;transition:all .2s;
-}
-.pj-more-btn:hover{color:var(--ink);border-color:var(--ink3);background:var(--glass);}
-.pj-more-btn svg{width:12px;height:12px;flex-shrink:0;stroke:currentColor;transition:transform .3s;}
-.pj.is-open .pj-more-btn svg{transform:rotate(180deg);}
 .pj-chip{
   font-family:var(--mono);font-size:9px;padding:3px 9px;
   background:var(--bg3);border:1px solid var(--border);
   color:var(--ink3);letter-spacing:.04em;border-radius:50px;
 }
-.pj-chip-more{
-  font-family:var(--mono);font-size:9px;padding:3px 9px;
-  background:transparent;border:1px dashed var(--border2);
-  color:var(--ink3);letter-spacing:.04em;border-radius:50px;font-weight:600;
-}
 
-/* ── Project card click-to-expand ── */
 .pj-expand{
-  max-height:0;opacity:0;
-  overflow:hidden;padding:0 24px;border-top:0 solid var(--border);
-  transition:max-height .55s cubic-bezier(.4,0,.2,1), opacity .4s ease, padding .55s cubic-bezier(.4,0,.2,1);
+  padding:12px 20px 16px;border-top:1px solid var(--border);
 }
-.pj.is-open .pj-expand{
-  max-height:900px;opacity:1;padding:16px 24px 24px;border-top-width:1px;
-}
-.pj-result{font-family:var(--mono);font-size:11.7px;color:var(--ink2);padding-top:14px;border-top:1px solid var(--border);letter-spacing:.03em;margin-bottom:4px;}
+.pj-result{font-family:var(--mono);font-size:11.7px;color:var(--ink2);padding-top:10px;border-top:1px solid var(--border);letter-spacing:.03em;}
 .pj-links{display:flex;flex-wrap:wrap;gap:8px;flex-shrink:0;}
 .pj-link{
   display:inline-flex;align-items:center;justify-content:center;
@@ -1155,7 +1130,7 @@ body.dm .pj-link:hover{box-shadow:0 6px 16px rgba(0,0,0,0.4);}
    CERTIFICATES
 ════════════════════════════════════════ */
 #certs{background:var(--bg);}
-.certs-body{display:grid;grid-template-columns:200px 1fr;gap:56px;}
+.certs-body{width:100%;}
 .cert-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
 .certs-reveal-wrap{position:relative;overflow:hidden;transition:max-height .6s cubic-bezier(.4,0,.2,1);}
 .certs-fade{
@@ -1193,7 +1168,7 @@ body.dm .pj-link:hover{box-shadow:0 6px 16px rgba(0,0,0,0.4);}
   mask-image:linear-gradient(to bottom, transparent 0%, transparent 75%, black 100%);
 }
 .certs-reveal-wrap.expanded .certs-fade{opacity:0;pointer-events:none;}
-.certs-more-wrap{display:flex;justify-content:center;padding-top:32px;grid-column:2;}
+.certs-more-wrap{display:flex;justify-content:center;padding-top:32px;}
 .certs-more-btn{
   display:inline-flex;align-items:center;gap:8px;
   padding:11px 26px;background:transparent;color:var(--ink2);
@@ -1233,7 +1208,7 @@ body.dm .cert-card:hover{box-shadow:0 10px 28px rgba(0,0,0,0.35);}
    EDUCATION
 ════════════════════════════════════════ */
 #education{background:var(--bg2);}
-.edu-body{display:grid;grid-template-columns:200px 1fr;gap:56px;}
+.edu-body{width:100%;}
 .edu-list{display:flex;flex-direction:column;}
 .edu-item{
   padding:40px 0;
@@ -1274,7 +1249,7 @@ body.dm .cert-card:hover{box-shadow:0 10px 28px rgba(0,0,0,0.35);}
    LEADERSHIP
 ════════════════════════════════════════ */
 #leadership{background:var(--bg2);}
-.lead-body{display:grid;grid-template-columns:200px 1fr;gap:56px;}
+.lead-body{width:100%;}
 .lead-list{display:flex;flex-direction:column;}
 .lead-item{
   display:grid;grid-template-columns:160px 1fr;gap:32px;
@@ -1292,7 +1267,7 @@ body.dm .cert-card:hover{box-shadow:0 10px 28px rgba(0,0,0,0.35);}
    REVIEWS
 ════════════════════════════════════════ */
 #reviews{background:var(--bg);}
-.reviews-body{display:grid;grid-template-columns:200px 1fr;gap:56px;}
+.reviews-body{width:100%;}
 .reviews-track{display:flex;flex-direction:column;gap:28px;}
 .rv-group-label{
   font-family:var(--mono);font-size:9.9px;color:var(--ink3);letter-spacing:.12em;text-transform:uppercase;
@@ -1378,10 +1353,9 @@ body.dm .review-card:hover{box-shadow:0 10px 28px rgba(0,0,0,0.35);}
 ════════════════════════════════════════ */
 footer{
   background:var(--bg);border-top:1px solid var(--border);
-  padding:22px 60px;display:flex;align-items:center;
+  padding:22px 60px;display:flex;align-items:center;justify-content:space-between;gap:24px;
   font-family:var(--mono);font-size:10.8px;color:var(--ink3);letter-spacing:.06em;
 }
-footer span{margin-left:auto;}
 
 /* ════════════════════════════════════════
    REVEAL ANIMATION
@@ -1394,7 +1368,7 @@ footer span{margin-left:auto;}
 ════════════════════════════════════════ */
 @media(min-width:1400px){
   .section{padding:100px 80px;}
-  .s-inner{max-width:1280px;}
+  .s-inner{max-width:1360px;}
 }
 @media(max-width:1199px){
   #hero{grid-template-columns:1fr 42% 1fr;}
@@ -1440,14 +1414,15 @@ footer span{margin-left:auto;}
   .section{padding:56px 24px;}
   .s-head{grid-template-columns:1fr;gap:8px;margin-bottom:32px;}
   .s-tag{padding-top:0;}
-  .about-body,.skills-body,.xp-body,.proj-body,.certs-body,.edu-body,.lead-body,.reviews-body{grid-template-columns:1fr;gap:20px;}
   .about-cols,.cert-grid{grid-template-columns:1fr;}
-  .proj-cards{grid-template-columns:1fr;}
+  .proj-cards{gap:20px;}
+  .pj{flex-direction:column;}
+  .pj-img-wrap{width:100%;max-width:none;min-width:0;aspect-ratio:1536/1024;position:static;}
+  .pj-img{position:static;}
   .edu-item,.xp-item,.lead-item{grid-template-columns:1fr;gap:12px;}
   .skills-cards{grid-template-columns:1fr 1fr;}
   .contact-grid{grid-template-columns:1fr;gap:40px;}
-  footer{padding:16px 24px;flex-direction:column;gap:4px;text-align:center;}
-  footer span{margin-left:0;}
+  footer{padding:16px 24px;flex-direction:column;justify-content:center;gap:4px;text-align:center;}
   .about-sub-head{grid-template-columns:1fr;gap:6px;margin-top:56px;padding-top:40px;}
   .hob-soft-grid{grid-template-columns:1fr;gap:32px;}
   /* Mobile timeline: all cards on right */
@@ -1780,7 +1755,6 @@ body.dm .w3f-error { color: #FC8181; }
   display: flex;
   justify-content: center;
   padding: 40px 0 0 0;
-  grid-column: 2;
 }
 
 .mab-btn {
@@ -2054,7 +2028,6 @@ nav {
     <!-- ── About Me ── -->
     <div class="s-head rv"><div class="s-tag">Background</div><h2 class="s-title">About <em>me</em></h2></div>
     <div class="about-body">
-      <div></div>
       <div class="about-cols">
         <div>
           <p class="ap rv">I am a cybersecurity professional focused on <strong>network security, cloud security, and VAPT</strong>. My work at Techdefence Labs involved live production environments — real client onboarding, live firewall deployments, and SIEM infrastructure managing 160+ devices across 20+ device types.</p>
@@ -2445,7 +2418,7 @@ nav {
 <section class="section" id="skills">
   <div class="s-inner">
     <div class="s-head rv"><div class="s-tag">Capabilities</div><h2 class="s-title">Technical <em>skills</em></h2></div>
-    <div class="skills-body"><div></div>
+    <div class="skills-body">
       <div class="skills-cards">
         <div class="sk-card rv"><div class="sk-dom">Network Security</div><div class="sk-name">Network Design &amp; Defense</div><div class="sk-tools"><span class="tool"><img src="https://cdn.simpleicons.org/cisco/1BA0D7" alt="">TCP/IP</span><span class="tool"><img src="https://cdn.simpleicons.org/wireshark/1679A1" alt="">Wireshark</span><span class="tool">VPN</span><span class="tool">IDS/IPS</span><span class="tool">NAT</span><span class="tool">VLAN</span><span class="tool">firewall</span></div></div>
         <div class="sk-card rv"><div class="sk-dom">VAPT</div><div class="sk-name">Vulnerability Assessment &amp; Pen Testing</div><div class="sk-tools"><span class="tool"><img src="https://cdn.simpleicons.org/kalilinux/557C94" alt="">Kali Linux</span><span class="tool"><img src="https://cdn.simpleicons.org/burpsuite/FF6633" alt="">Burp Suite</span><span class="tool"><img src="https://cdn.simpleicons.org/metasploit/2596CD" alt="">Metasploit</span><span class="tool">Nmap</span><span class="tool">OWASP Top 10</span><span class="tool">MITRE ATT&CK</span></div></div>
@@ -2461,7 +2434,7 @@ nav {
 <section class="section" id="experience">
   <div class="s-inner">
     <div class="s-head rv"><div class="s-tag">Work History</div><h2 class="s-title">Where I've <em>worked</em></h2></div>
-    <div class="xp-body"><div></div>
+    <div class="xp-body">
       <div class="xp-list">
         <div class="xp-item rv">
           <div>
@@ -2565,13 +2538,14 @@ nav {
 <section class="section" id="projects">
   <div class="s-inner">
     <div class="s-head rv"><div class="s-tag">Key Projects</div><h2 class="s-title">Work I've <em>built</em></h2></div>
-    <div class="proj-body"><div></div>
+    <div class="proj-body">
       <div class="proj-cards">
         <div class="pj rv">
           <div class="pj-img-wrap">
             <img src="images/proj-001-cloud-ransomware.png" alt="Cloud Ransomware Detection System — project screenshot" class="pj-img pj-img-light" loading="lazy">
             <img src="images/proj-001-cloud-ransomware-dark.png" alt="Cloud Ransomware Detection System — project screenshot" class="pj-img pj-img-dark" loading="lazy">
           </div>
+          <div class="pj-content">
           <div class="pj-preview">
             <div class="pj-top-row">
               <div class="pj-num">PROJ-001 / Cloud Security</div>
@@ -2585,19 +2559,14 @@ nav {
               </div>
             </div>
             <div class="pj-name">Cloud Ransomware Detection System</div>
-            <div class="pj-desc">Cloud-native ransomware detection on GCP. A lightweight Python detection function continuously watches storage buckets for ransomware-style file modification patterns. On trigger, a second function automatically isolates the affected VM by revoking its network access, while a third handles scheduled backups so encrypted data can be recovered without a payout — the whole pipeline is serverless and coordinated through Pub/Sub events for near real-time response.</div>
+            <div class="pj-desc">Cloud-native ransomware detection on GCP. A Python function watches storage buckets for suspicious file changes, isolates the affected VM automatically, and triggers scheduled backups — a fully serverless pipeline coordinated through Pub/Sub.</div>
             <div class="pj-stack">
               <span class="pj-chip">GCP</span>
               <span class="pj-chip">Cloud Functions</span>
-              <span class="pj-chip pj-chip-hidden">Pub/Sub</span>
-              <span class="pj-chip pj-chip-hidden">Python</span>
-              <span class="pj-chip pj-chip-hidden">Compute Engine</span>
-              <span class="pj-chip-more">+3 more</span>
+              <span class="pj-chip">Pub/Sub</span>
+              <span class="pj-chip">Python</span>
+              <span class="pj-chip">Compute Engine</span>
             </div>
-            <button type="button" class="pj-more-btn" aria-expanded="false">
-              <span class="pj-more-label">View More</span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-            </button>
           </div>
           <div class="pj-expand">
             <div class="pj-feature">
@@ -2606,12 +2575,14 @@ nav {
             </div>
             <div class="pj-result">→ 96.3% detection accuracy · Sub-10s automated VM isolation</div>
           </div>
+          </div>
         </div>
         <div class="pj rv">
           <div class="pj-img-wrap">
             <img src="images/proj-002-network-security-lab.png" alt="Enterprise Network Security &amp; SOC Lab — project screenshot" class="pj-img pj-img-light" loading="lazy">
             <img src="images/proj-002-network-security-lab-dark.png" alt="Enterprise Network Security &amp; SOC Lab — project screenshot" class="pj-img pj-img-dark" loading="lazy">
           </div>
+          <div class="pj-content">
           <div class="pj-preview">
             <div class="pj-top-row">
               <div class="pj-num">PROJ-002 / Enterprise Network Security Home Lab</div>
@@ -2625,24 +2596,19 @@ nav {
               </div>
             </div>
             <div class="pj-name">Enterprise Network Security &amp; SOC Lab</div>
-            <div class="pj-desc">Designed and deployed an 8-VM enterprise cybersecurity lab replicating a small enterprise network end-to-end: an OPNsense firewall handles routing, NAT, and inter-segment policy, while a Windows Server 2022 domain controller manages Active Directory, group policy, and centralized authentication. Kali Linux, Metasploitable 2, and OWASP BWA sit in an isolated segment for attack simulation, with Wazuh aggregating logs and alerts across all 8 VMs for centralized security monitoring — alongside core network services like DHCP, DNS, and NAT.</div>
+            <div class="pj-desc">An 8-VM enterprise lab replicating a small business network end-to-end — OPNsense handles routing and firewall policy, a Windows Server domain controller manages Active Directory, and an isolated Kali/Metasploitable/OWASP BWA segment enables attack simulation, all monitored through Wazuh.</div>
             <div class="pj-stack">
               <span class="pj-chip">VMware Workstation</span>
               <span class="pj-chip">OPNsense</span>
-              <span class="pj-chip pj-chip-hidden">Active Directory</span>
-              <span class="pj-chip pj-chip-hidden">Windows Server 2022</span>
-              <span class="pj-chip pj-chip-hidden">Windows 10</span>
-              <span class="pj-chip pj-chip-hidden">Kali Linux</span>
-              <span class="pj-chip pj-chip-hidden">Metasploitable 2</span>
-              <span class="pj-chip pj-chip-hidden">OWASP BWA</span>
-              <span class="pj-chip pj-chip-hidden">Wazuh</span>
-              <span class="pj-chip pj-chip-hidden">Networking</span>
-              <span class="pj-chip-more">+8 more</span>
+              <span class="pj-chip">Active Directory</span>
+              <span class="pj-chip">Windows Server 2022</span>
+              <span class="pj-chip">Windows 10</span>
+              <span class="pj-chip">Kali Linux</span>
+              <span class="pj-chip">Metasploitable 2</span>
+              <span class="pj-chip">OWASP BWA</span>
+              <span class="pj-chip">Wazuh</span>
+              <span class="pj-chip">Networking</span>
             </div>
-            <button type="button" class="pj-more-btn" aria-expanded="false">
-              <span class="pj-more-label">View More</span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-            </button>
           </div>
           <div class="pj-expand">
             <div class="pj-feature">
@@ -2651,6 +2617,7 @@ nav {
             </div>
             <div class="pj-result">→ 8 Virtual Machines · Multi-Segment Enterprise Network · Active Directory · OPNsense Firewall · Attack Simulation · Security Monitoring</div>
           </div>
+          </div>
         </div>
 
         <div class="pj rv">
@@ -2658,6 +2625,7 @@ nav {
             <img src="images/proj-003-portfolio-website.png" alt="Zero-Code Cybersecurity Portfolio Website — project screenshot" class="pj-img pj-img-light" loading="lazy">
             <img src="images/proj-003-portfolio-website-dark.png" alt="Zero-Code Cybersecurity Portfolio Website — project screenshot" class="pj-img pj-img-dark" loading="lazy">
           </div>
+          <div class="pj-content">
           <div class="pj-preview">
             <div class="pj-top-row">
               <div class="pj-num">PROJ-003 / AI-Assisted Development</div>
@@ -2671,21 +2639,16 @@ nav {
               </div>
             </div>
             <div class="pj-name">Zero-Code Cybersecurity Portfolio Website</div>
-            <div class="pj-desc">Designed and built entirely through conversational AI prompting rather than manual coding — every layout decision, section, and interaction (dark mode, scroll-reveal animations, adaptive project cards, serverless contact form) was iteratively directed and refined in natural language. The result is a fully responsive, accessible, production-grade personal cybersecurity portfolio deployed on Vercel, with theme-aware assets throughout.</div>
+            <div class="pj-desc">Designed and built entirely through conversational AI prompting rather than manual coding — every layout, animation, and interaction was directed in natural language. The result is a fully responsive, production-grade portfolio deployed on Vercel.</div>
             <div class="pj-stack">
               <span class="pj-chip">HTML5</span>
               <span class="pj-chip">CSS3</span>
-              <span class="pj-chip pj-chip-hidden">Vanilla JavaScript</span>
-              <span class="pj-chip pj-chip-hidden">Vercel</span>
-              <span class="pj-chip pj-chip-hidden">Web3Forms</span>
-              <span class="pj-chip pj-chip-hidden">Serverless Functions</span>
-              <span class="pj-chip pj-chip-hidden">AI-Assisted Development</span>
-              <span class="pj-chip-more">+5 more</span>
+              <span class="pj-chip">Vanilla JavaScript</span>
+              <span class="pj-chip">Vercel</span>
+              <span class="pj-chip">Web3Forms</span>
+              <span class="pj-chip">Serverless Functions</span>
+              <span class="pj-chip">AI-Assisted Development</span>
             </div>
-            <button type="button" class="pj-more-btn" aria-expanded="false">
-              <span class="pj-more-label">View More</span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-            </button>
           </div>
           <div class="pj-expand">
             <div class="pj-feature">
@@ -2694,17 +2657,16 @@ nav {
             </div>
             <div class="pj-result">→ 100% AI-directed build · Fully responsive · Dark mode · Zero manually written code</div>
           </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
-</section>
-
 <section class="section" id="certs">
   <div class="s-inner">
     <div class="s-head rv"><div class="s-tag">Credentials</div><h2 class="s-title">Certifi<em>cations</em></h2></div>
-    <div class="certs-body"><div></div>
+    <div class="certs-body">
       <div class="certs-reveal-wrap" id="certs-reveal">
       <div class="cert-grid" id="cert-grid">
         <a class="cert-card rv" href="https://coursera.org/share/a2180646f88f19f708d4062b9401d56d" target="_blank" rel="noopener"><div class="cert-img-wrap"><img src="images/google.png" alt="Google Foundations of Cybersecurity Certificate"></div><div class="cert-body"><div class="cert-issuer">Google • Coursera</div><div class="cert-name">Foundations of Cybersecurity</div><div class="cert-desc">Completed Google's foundational cybersecurity course covering security principles, risk management, network security, incident response, and security operations fundamentals.</div><div class="cert-date">Jul 2026</div></div></a>
@@ -2738,7 +2700,7 @@ nav {
 <section class="section" id="education">
   <div class="s-inner">
     <div class="s-head rv"><div class="s-tag">Academic</div><h2 class="s-title">Edu<em>cation</em></h2></div>
-    <div class="edu-body"><div></div>
+    <div class="edu-body">
       <div class="edu-list">
         <div class="edu-item rv">
           <div>
@@ -2789,7 +2751,7 @@ nav {
 <section class="section" id="leadership">
   <div class="s-inner">
     <div class="s-head rv"><div class="s-tag">Community</div><h2 class="s-title">Leadership &amp; <em>activities</em></h2></div>
-    <div class="lead-body"><div></div>
+    <div class="lead-body">
       <div class="lead-list">
         <div class="lead-item rv"><div><div class="lead-when">Aug 2024</div><div class="lead-org">LinkedIn</div><div class="lead-cat">Event Management</div></div><div><div class="lead-title">Event Coordinator — LinkedIn Career Kickstart Program</div><div class="lead-desc">Coordinated a university-level professional career development event, managing participant logistics, scheduling, and session management.</div></div></div>
         <div class="lead-item rv"><div><div class="lead-when">Mar 2024</div><div class="lead-org">Government of India</div><div class="lead-cat">Training / Education</div></div><div><div class="lead-title">Trainer — Sanchar Mitra, Government of India</div><div class="lead-desc">Delivered technical training under the Government of India's Sanchar Mitra initiative, equipping participants with foundational digital and communication technology skills at the grassroots level.</div></div></div>
@@ -2804,7 +2766,6 @@ nav {
   <div class="s-inner">
     <div class="s-head rv"><div class="s-tag">Testimonials</div><h2 class="s-title">What people <em>say</em></h2></div>
     <div class="reviews-body">
-      <div></div>
       <div class="reviews-track">
 
         <div class="rv-group-label">Recommendation Letters</div>
@@ -3049,15 +3010,7 @@ function toggleReview(id,btnId){
   setCollapsedHeight();
 })();
 
-/* Project card view more/less toggle */
-document.querySelectorAll('.pj-more-btn').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    const card=btn.closest('.pj');
-    const open=card.classList.toggle('is-open');
-    btn.setAttribute('aria-expanded',open);
-    btn.querySelector('.pj-more-label').textContent=open?'View Less':'View More';
-  });
-});
+
 
 /* 3D card tilt */
 document.querySelectorAll('.sk-card,.cert-card,.review-card').forEach(card=>{
